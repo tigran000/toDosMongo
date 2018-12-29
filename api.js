@@ -8,10 +8,10 @@ api.get('/api/todos', (req, res) => {
   toDo.find({}, (err, toDos) => {
     res.json(toDos)
   })
+
 })
 
 api.post('/api/todos', (req, res) => {
-  req.check('newToDo').notEmpty().withMessage('New todo field is empty');
   const newTodo = new toDo({
     text: req.body.text
   })
@@ -24,7 +24,7 @@ api.post('/api/todos', (req, res) => {
 })
 
 api.put('/api/todos/:postID', (req, res) => {
-  toDo.update({ _id: req.params.postID }, { text: req.body.text }, () => {
+  toDo.updateOne({ _id: req.params.postID }, { text: req.body.text }, () => {
     res.end('UPDATED')
   })
 })
